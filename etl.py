@@ -33,9 +33,9 @@ def data_quality_check(cur, conn):
         cur.execute(query)
         (records,) = cur.fetchone()
         if records < 1:
-            print(f"Failed on {query}: {records} records")
+            print(f"FAILED! Query: '{query}' returned {records} records.")
         else:
-            print(f"Success on {query}: {records} records")
+            print(f"SUCCESS! Query: '{query}' returned {records} records")
         conn.commit()
 
 

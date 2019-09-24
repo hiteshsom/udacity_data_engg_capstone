@@ -107,6 +107,7 @@ WEEKDAY VARCHAR(5000)
 staging_bay_area_trips_copy = ("""
     copy staging_bay_area_trips from {} 
     format as CSV 
+    ignoreheader 1
     delimiter as ','
     credentials 'aws_iam_role={}' 
     region 'us-west-2' 
@@ -116,6 +117,7 @@ staging_bay_area_trips_copy = ("""
 staging_nyc_trips_copy = ("""
     copy staging_nyc_trips from {} 
     format as CSV 
+    ignoreheader 1
     delimiter as ','
     credentials 'aws_iam_role={}' 
     region 'us-west-2' 
@@ -143,6 +145,9 @@ when 1 then 'Male'
 else 'Female'
 end 
 from staging_nyc_trips
+where start_time is not null and end_time is not null and start_station_id is not null and end_station_id is not null
+and bike_id is not null and duration_sec is not null and user_type is not null and member_birth_year is not null and 
+member_gender is not null
 """)
 
 trips_table_insert_bay_area = ("""Insert into 
@@ -163,6 +168,9 @@ when 'Male' then 'Male'
 else 'Female'
 end     
 from staging_bay_area_trips
+where start_time is not null and end_time is not null and start_station_id is not null and end_station_id is not null
+and bike_id is not null and duration_sec is not null and user_type is not null and member_birth_year is not null and 
+member_gender is not null
 """)
 
 stations_table_insert_nyc_start = ("""
@@ -171,7 +179,8 @@ Select start_station_id, start_station_name, start_station_latitude, start_stati
 (
 Select *, row_number() over (partition by start_station_id) as row_num from staging_nyc_trips
 )
-where row_num = 1
+where row_num = 1 and start_station_id is not null and start_station_name is not null and start_station_latitude is not 
+null and start_station_longitude is not null
 """)
 
 
@@ -181,7 +190,8 @@ Select end_station_id, end_station_name, end_station_latitude, end_station_longi
 (
 Select *, row_number() over (partition by end_station_id) as row_num from staging_nyc_trips
 )
-where row_num = 1
+where row_num = 1 and end_station_id is not null and end_station_name is not null and end_station_latitude is not null
+and end_station_longitude is not null
 """)
 
 stations_table_insert_bay_area_start = ("""
@@ -190,7 +200,8 @@ Select start_station_id, start_station_name, start_station_latitude, start_stati
 (
 Select *, row_number() over (partition by start_station_id) as row_num from staging_bay_area_trips
 )
-where row_num = 1
+where row_num = 1 and start_station_id is not null and start_station_name is not null and start_station_latitude is not 
+null and start_station_longitude is not null 
 """)
 
 stations_table_insert_bay_area_end = ("""
@@ -199,7 +210,8 @@ Select end_station_id, end_station_name, end_station_latitude, end_station_longi
 (
 Select *, row_number() over (partition by end_station_id) as row_num from staging_bay_area_trips
 )
-where row_num = 1 
+where row_num = 1 and end_station_id is not null and end_station_name is not null and end_station_latitude is not null
+and end_station_longitude is not null 
 """)
 
 bikes_table_insert_nyc = ("""
@@ -209,7 +221,7 @@ from
 (
 Select *, row_number() over (partition by bike_id) as row_num from staging_nyc_trips
 )
-where row_num = 1
+where row_num = 1 and bike_id is not null
 """)
 
 bikes_table_insert_bay_area = ("""
@@ -219,7 +231,7 @@ from
 (
 Select *, row_number() over (partition by bike_id) as row_num from staging_nyc_trips
 )
-where row_num = 1
+where row_num = 1 and bike_id is not null
 """)
 
 time_table_insert_nyc_start = ("""
@@ -231,7 +243,7 @@ DATEPART(dow, TS) AS WEEKDAY FROM
 (
 Select *, row_number() over (partition by start_time) as row_num from staging_nyc_trips
 )
-where row_num = 1
+where row_num = 1 and TS is not null
 )
 """)
 
@@ -244,7 +256,7 @@ DATEPART(dow, TS) AS WEEKDAY FROM
 (
 Select *, row_number() over (partition by end_time) as row_num from staging_nyc_trips
 )
-where row_num = 1
+where row_num = 1 and TS is not null
 )
 """)
 
@@ -258,7 +270,7 @@ DATEPART(dow, TS) AS WEEKDAY FROM
 (
 Select *, row_number() over (partition by start_time) as row_num from staging_bay_area_trips
 )
-where row_num = 1)
+where row_num = 1 and TS is not null)
 """)
 
 time_table_insert_bay_area_end = ("""
@@ -270,7 +282,7 @@ DATEPART(dow, TS) AS WEEKDAY FROM
 (
 Select *, row_number() over (partition by end_time) as row_num from staging_bay_area_trips
 )
-where row_num = 1
+where row_num = 1 and TS is not null
 )
 """)
 
