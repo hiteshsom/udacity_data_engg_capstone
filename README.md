@@ -1,15 +1,17 @@
-# udacity_data_engg_capstone
-Capstone Project about the bike riding in Bay area and New York City
+#Bike Sharing Data Model
 
-## Step 1: Scope the Project and Gather Data
-The data is about bike sharing rides of two cities New York city and Bay Area. 
-The data exist for July, 2019 of both the cities. 
-The end use case for this is to make data available in a format suitable for analysis.
+###Project Summary
 
-##  Explore and Assess the Data
-The data has missing values and there are some fields which have duplication.
+This project aims at developing a data model of bike sharing system for easy analysis.
 
-##  Define the Data Model
-The conceptual data model will be star schema. The reason behind choosing this model is to
+The project follows the follow steps:
 
-## Run ETL to Model the Data
+Step 1: Scope the Project and Gather Data
+Step 2: Explore and Assess the Data: Capstone Project Template.ipynb
+Step 3: Define the Data Model
+Step 4: Run ETL to Model the Data: etl.py, sql_queries.py, dwh.cfg
+Step 5: Complete Project Write Up: writeup.md
+
+
+
+    
