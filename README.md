@@ -12,6 +12,7 @@ The project follows the follow steps:
 4. Run ETL to Model the Data: etl.py, sql_queries.py, dwh.cfg
 5. Complete Project Write Up: writeup.md
 
-
+Data can be downloaded from this link:
+https://drive.google.com/drive/folders/11hGOmKx_p1YxO9zqEIg7Ocnr9Vr_F168?usp=sharing
 
     
