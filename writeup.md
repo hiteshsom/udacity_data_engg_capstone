@@ -30,6 +30,9 @@ The data set were downloaded from
 1. https://www.citibikenyc.com/system-data
 2. https://s3.amazonaws.com/baywheels-data/index.html
 
+The data for this project can be downloaded from this link:<br>
+https://drive.google.com/drive/folders/11hGOmKx_p1YxO9zqEIg7Ocnr9Vr_F168?usp=sharing
+
 The information included is about bike ride and some information about rider.
 For example: duration of ride, bike start station location, bike end_station_location, gender of the rider, birth_year etc.
 
