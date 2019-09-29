@@ -16,8 +16,10 @@ Explain what you plan to do in the project in more detail. What data do you use?
 
 The data is about bike sharing rides of two cities New York city and Bay Area.
 The data exist for August, 2019 of both the cities.
-The end use case for this is to make data available in a format suitable for analysis.
-The tools I am going to use is jupyter lab.
+The end use case for this is to make data available in a data model suitable for analysis.
+The tools I am going to use is S3, Amazon Redshift, Python library psycopg2 and Python.
+
+The data is uploaded to S3 bucket then it is staged in temporary Redshift tables. Then it is cleaned and converted into data model needed by our project(Star Schema).
 
 #### Describe and Gather Data
 Describe the data sets you're using. Where did it come from? What type of information is included?

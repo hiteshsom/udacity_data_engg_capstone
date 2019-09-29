@@ -1,7 +1,7 @@
 import configparser
 import psycopg2
 from sql_queries import drop_table_queries, create_table_queries, copy_table_queries, insert_table_queries, \
-    data_quality_check_queries
+    data_quality_check_records, data_quality_check_missing
 
 
 def drop_tables(cur, conn):
@@ -28,14 +28,25 @@ def insert_tables(cur, conn):
         conn.commit()
 
 
-def data_quality_check(cur, conn):
-    for query in data_quality_check_queries:
+def data_quality_check_rows(cur, conn):
+    for query in data_quality_check_records:
         cur.execute(query)
         (records,) = cur.fetchone()
         if records < 1:
-            print(f"FAILED! Query: '{query}' returned {records} records.")
+            raise ValueError(f"FAILED! Check rows query: '{query}' returned {records} records.")
         else:
-            print(f"SUCCESS! Query: '{query}' returned {records} records")
+            print(f"SUCCESS! Check rows query: '{query}' returned {records} records")
+        conn.commit()
+
+
+def data_quality_check_empty_values(cur, conn):
+    for query in data_quality_check_missing:
+        cur.execute(query)
+        (records,) = cur.fetchone()
+        if records < 1:
+            print(f"\nSUCCESS! Check empty values query: \n'{query}' \nreturned {records} records.")
+        else:
+            raise ValueError(f"FAILED! Check empty values query: \n'{query}' \nreturned {records} records")
         conn.commit()
 
 
@@ -56,7 +67,8 @@ def main():
     create_tables(cur, conn)
     load_staging_tables(cur, conn)
     insert_tables(cur, conn)
-    data_quality_check(cur, conn)
+    data_quality_check_rows(cur, conn)
+    data_quality_check_empty_values(cur, conn)
 
     conn.close()
 
