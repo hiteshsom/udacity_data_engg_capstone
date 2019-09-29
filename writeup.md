@@ -12,7 +12,7 @@ The project follows the follow steps:
 ### Step 1: Scope the Project and Gather Data
 
 #### Scope
-Explain what you plan to do in the project in more detail. What data do you use? What is your end solution look like? What tools did you use? etc>
+Explain what you plan to do in the project in more detail. What data do you use? What is your end solution look like? What tools did you use? etc
 
 The data is about bike sharing rides of two cities New York city and Bay Area.
 The data exist for August, 2019 of both the cities.
@@ -23,6 +23,7 @@ The data is uploaded to S3 bucket then it is staged in temporary Redshift tables
 
 #### Describe and Gather Data
 Describe the data sets you're using. Where did it come from? What type of information is included?>
+
 The dataset are about bike rides in New york city and Bay Area.
 
 The data set were downloaded from
@@ -51,8 +52,8 @@ Document steps necessary to clean the data
 #### 3.1 Conceptual Data Model
 Map out the conceptual data model and explain why you chose that model
 The conceptual data model will be star schema.
-Dimension tables: stations, bikes and time
-Fact: trips
+Dimension tables: stations, bikes and time<br>
+Fact: trips<br>
 
 #### 3.2 Mapping Out Data Pipelines
 List the steps necessary to pipeline the data into the chosen data model
