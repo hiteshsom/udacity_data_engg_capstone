@@ -51,73 +51,76 @@ Document steps necessary to clean the data
 ### Step 3: Define the Data Model
 #### 3.1 Conceptual Data Model
 Map out the conceptual data model and explain why you chose that model
-The conceptual data model will be star schema.
+The conceptual data model will be star schema.<br>
 Dimension tables: stations, bikes and time<br>
 Fact: trips<br>
 
 #### 3.2 Mapping Out Data Pipelines
-List the steps necessary to pipeline the data into the chosen data model
-1. Make dimensional tables
-2. Make fact tables
+List the steps necessary to pipeline the data into the chosen data model<br>
+1. Create staging table, dimension tables, fact tables in redshift
+1. Stage S3 table in Redshift
+2. Insert data from staging table in dimensional tables
+3. Insert data from staging table in fact tables
+4. Perform data quality checks
 
 ### Step 4: Run Pipelines to Model the Data
 #### 4.1 Create the data model
-Build the data pipelines to create the data model.
+Build the data pipelines to create the data model.<br>
 The data pipeline is built in etl.py
 
 
 #### 4.2 Data Quality Checks
-Explain the data quality checks you'll perform to ensure the pipeline ran as expected. These could include:
+Explain the data quality checks you'll perform to ensure the pipeline ran as expected.<br>
 Data quality check involves a count of number of rows in fact and dimension tables should be more than 0
 and count of number of rows having missing values which should be 0.
 
 #### 4.3 Data dictionary
 Create a data dictionary for your data model. For each field, provide a brief description of what the data is and
-where it came from. You can include the data dictionary in the notebook or in a separate file.
+where it came from. You can include the data dictionary in the notebook or in a separate file.<br>
 
-Tables
-TRIPS
-trip_id: Id column of the fact table made using Identity(1,1) function. Datatype is Integer.
-start_time: Starting timestamp.
-end_time: Ending timestamp.
-start_station_id: Id of the starting station of the Bike ride. Datatype is varchar.
-end_station_id: Id of the starting station of the Bike ride. Datatype is varchar.
-bike_id: Id of the bike used in the ride. Datatype is varchar.
-duration: Duration of the ride in seconds. Datatype is Integer.
-user_type: The type of User (either: Customer or Subscriber). Datatype is Vachar.
-member_birth_year: Birth year of the rider. Datatype is Integer.
-member_gender: Gender of teh rider (Male, Female and Other/Unknown). Datatype is Varchar.
+Tables<br>
+TRIPS<br>
+trip_id: Id column of the fact table made using Identity(1,1) function. Datatype is Integer.<br>
+start_time: Starting timestamp.<br>
+end_time: Ending timestamp.<br>
+start_station_id: Id of the starting station of the Bike ride. Datatype is varchar.<br>
+end_station_id: Id of the starting station of the Bike ride. Datatype is varchar.<br>
+bike_id: Id of the bike used in the ride. Datatype is varchar.<br>
+duration: Duration of the ride in seconds. Datatype is Integer.<br>
+user_type: The type of User (either: Customer or Subscriber). Datatype is vachar.<br>
+member_birth_year: Birth year of the rider. Datatype is Integer.<br>
+member_gender: Gender of teh rider (Male, Female and Other/Unknown). Datatype is varchar.<br>
 
-STATIONS
-station_id: Id of the station. Datatype is varchar.
-station_name: Name of the station. Datatype is varchar.
-station_lattitude: Latitude of teh station. Datatype is float.
-station_longitude: Longitude of teh station. Datatype is float.
+STATIONS<br>
+station_id: Id of the station. Datatype is varchar.<br>
+station_name: Name of the station. Datatype is varchar.<br>
+station_lattitude: Latitude of teh station. Datatype is float.<br>
+station_longitude: Longitude of teh station. Datatype is float.<br>
 
-BIKES
-bike_id: Id of bike. Datatype is varchar.
+BIKES<br>
+bike_id: Id of bike. Datatype is varchar.<br>
 
-TIME
-ts: timestamp
-hour: hour in the timestamp. Datatype is Integer.
-day: day in the timestamp. Datatype is Integer.
-week: week derived from timestamp.Datatype is Integer.
-month: month in timestamp. Datatype is Integer.
-year: year in timestamp. Datatype is Integer.
-weekday: weekday represented by the timestamp. Datatype is varchar.
+TIME<br>
+ts: timestamp<br>
+hour: hour in the timestamp. Datatype is Integer.<br>
+day: day in the timestamp. Datatype is Integer.<br>
+week: week derived from timestamp.Datatype is Integer.<br>
+month: month in timestamp. Datatype is Integer.<br>
+year: year in timestamp. Datatype is Integer.<br>
+weekday: weekday represented by the timestamp. Datatype is varchar.<br>
 
 #### Step 5: Complete Project Write Up
-* Clearly state the rationale for the choice of tools and technologies for the project.
+* Clearly state the rationale for the choice of tools and technologies for the project.<br>
 Tools used was S3 to hold data, Redshift for creating dimension and fact tables and psycopg2 was the library used in
 python to programmatically create tables.
 
-* Propose how often the data should be updated and why.
+* Propose how often the data should be updated and why.<br>
 The data should be updated monthly as the number of rides don't generate a lot of data in a day.
 
-* Write a description of how you would approach the problem differently under the following scenarios:
- * The data was increased by 100x
- Redshift can still handle 100x times data as we can use powerful clusters.
- * The data populates a dashboard that must be updated on a daily basis by 7am every day.
- We can use Airflow for scheduling the updation of data daily at 7 am.
- * The database needed to be accessed by 100+ people.
- We need to authenticate user for using tables we created in redshift
+* Write a description of how you would approach the problem differently under the following scenarios:<br>
+ * The data was increased by 100x<br>
+ Redshift can still handle 100x times data as we can use powerful clusters.<br>
+ * The data populates a dashboard that must be updated on a daily basis by 7am every day.<br>
+ We can use Airflow for scheduling the updation of data daily at 7 am.<br>
+ * The database needed to be accessed by 100+ people.<br>
+ We need to authenticate user for using tables we created in redshift<br>
