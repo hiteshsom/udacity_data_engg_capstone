@@ -22,7 +22,7 @@ The tools I am going to use is S3, Amazon Redshift, Python library psycopg2 and 
 The data is uploaded to S3 bucket then it is staged in temporary Redshift tables. Then it is cleaned and converted into data model needed by our project(Star Schema).
 
 #### Describe and Gather Data
-Describe the data sets you're using. Where did it come from? What type of information is included?
+Describe the data sets you're using. Where did it come from? What type of information is included?>
 The dataset are about bike rides in New york city and Bay Area.
 
 The data set were downloaded from
@@ -67,7 +67,8 @@ The data pipeline is built in etl.py
 
 #### 4.2 Data Quality Checks
 Explain the data quality checks you'll perform to ensure the pipeline ran as expected. These could include:
-Data quality check involves a count of number of records in fact and dimension tables should be more than 0.0
+Data quality check involves a count of number of rows in fact and dimension tables should be more than 0
+and count of number of rows having missing values which should be 0.
 
 #### 4.3 Data dictionary
 Create a data dictionary for your data model. For each field, provide a brief description of what the data is and
